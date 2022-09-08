@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -44,7 +45,9 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if (function_exists('newrelic_notice_error')) {
+                newrelic_notice_error($e);
+            }
         });
     }
 }
