@@ -22,10 +22,8 @@ class NewRelic
 
     public function getTransactionName(Request $request): string
     {
-        $route 
-            = $request->route()->action['controller']
-            = $request->route()->uri
-            ?: 'undefined'
+        $route = $request->route()->action['controller']
+            ?? $request->route()?->uri
             ?? 'undefined';
 
         return $route;
